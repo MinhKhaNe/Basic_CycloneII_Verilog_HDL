@@ -1,0 +1,25 @@
+module Lab2(SW,LEDG,LEDR,CLOCK_50);
+	input[17:0] SW;
+	input CLOCK_50;
+	output[7:0] LEDG;
+	output[17:0] LEDR;
+	assign LEDR=SW;
+	dff_asyn DUT(CLOCK_50,SW[2],SW[1:0],LEDG[1:0]);
+endmodule
+
+module dff_asyn(
+	input	wire	clk,
+	input 	wire	rst_n,
+	input 	wire	[1:0]	in,
+	output	reg		[1:0]	out
+);
+
+	always @(posedge clk or negedge rst_n) begin
+		if(!rst_n) 
+			out 	<= 2'b00;
+		else
+			out	<= in;
+	end
+
+endmodule
+
